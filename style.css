@@ -15,7 +15,7 @@ header {
 }
 
 main {
-    max-width: 900px; /* Немного шире для лучшего вида */
+    max-width: 900px; 
     margin: 40px auto;
     padding: 30px;
     background-color: white;
@@ -158,3 +158,4 @@ footer {
     color: #777;
     font-size: 0.8em;
 }
+
