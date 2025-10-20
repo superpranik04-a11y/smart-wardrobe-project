@@ -1,46 +1,46 @@
 // -----------------------------------------------------------
 // 1. КОНФИГУРАЦИЯ
 // -----------------------------------------------------------
-// ВАШ API-КЛЮЧ: 
+// ВАШ API-КЛЮЧ (остается тот же):
 const API_KEY = "81f7baf7815a06b27c1c2bc6045aa0e3"; 
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
 // -----------------------------------------------------------
-// 2. БАЗА ДАННЫХ ГАРДЕРОБА (Ваша логическая модель)
+// 2. БАЗА ДАННЫХ ГАРДЕРОБА (Добавлены эмодзи)
 // -----------------------------------------------------------
-// Логика: чем выше в списке предмет, тем он "теплее" (нужен при более низких температурах).
 const WARDROBE_DATA = [
-    // Верхняя одежда (нужно выбрать только 1, программа выберет первый подходящий)
-    { category: "Верхняя одежда", name: "Плотный зимний пуховик", min_t: -20, max_t: -5, rain_proof: false },
-    { category: "Верхняя одежда", name: "Теплое шерстяное пальто", min_t: -5, max_t: 5, rain_proof: false },
-    { category: "Верхняя одежда", name: "Демисезонная куртка/плащ", min_t: 5, max_t: 15, rain_proof: true },
-    { category: "Верхняя одежда", name: "Легкая ветровка", min_t: 15, max_t: 25, rain_proof: true },
-    { category: "Верхняя одежда", name: "Отсутствует (только футболка)", min_t: 25, max_t: 50, rain_proof: false },
+    // Верхняя одежда
+    { category: "Верхняя одежда", name: "Плотный зимний пуховик", min_t: -20, max_t: -5, rain_proof: false, icon: "🧥" },
+    { category: "Верхняя одежда", name: "Теплое шерстяное пальто", min_t: -5, max_t: 5, rain_proof: false, icon: "🧣" },
+    { category: "Верхняя одежда", name: "Демисезонная куртка/плащ", min_t: 5, max_t: 15, rain_proof: true, icon: "🧥" },
+    { category: "Верхняя одежда", name: "Легкая ветровка", min_t: 15, max_t: 25, rain_proof: true, icon: "💨" },
+    { category: "Верхняя одежда", name: "Отсутствует (только футболка)", min_t: 25, max_t: 50, rain_proof: false, icon: "☀️" },
     
     // Основной слой
-    { category: "Основной слой", name: "Термобелье и свитер", min_t: -20, max_t: 0, rain_proof: false },
-    { category: "Основной слой", name: "Лонгслив или легкий свитер", min_t: 0, max_t: 15, rain_proof: false },
-    { category: "Основной слой", name: "Футболка или рубашка", min_t: 15, max_t: 50, rain_proof: false },
+    { category: "Основной слой", name: "Термобелье и свитер", min_t: -20, max_t: 0, rain_proof: false, icon: "🧤" },
+    { category: "Основной слой", name: "Лонгслив или легкий свитер", min_t: 0, max_t: 15, rain_proof: false, icon: "👕" },
+    { category: "Основной слой", name: "Футболка или рубашка", min_t: 15, max_t: 50, rain_proof: false, icon: "👚" },
     
     // Низ
-    { category: "Низ", name: "Теплые брюки с начесом", min_t: -20, max_t: 0, rain_proof: false },
-    { category: "Низ", name: "Джинсы/Плотные брюки", min_t: 0, max_t: 20, rain_proof: false },
-    { category: "Низ", name: "Шорты/Легкая юбка", min_t: 20, max_t: 50, rain_proof: false },
+    { category: "Низ", name: "Теплые брюки с начесом", min_t: -20, max_t: 0, rain_proof: false, icon: "👖" },
+    { category: "Низ", name: "Джинсы/Плотные брюки", min_t: 0, max_t: 20, rain_proof: false, icon: "👖" },
+    { category: "Низ", name: "Шорты/Легкая юбка", min_t: 20, max_t: 50, rain_proof: false, icon: "🩳" },
 
     // Обувь
-    { category: "Обувь", name: "Зимние ботинки", min_t: -20, max_t: 0, rain_proof: true },
-    { category: "Обувь", name: "Кожаные ботинки/Кроссовки", min_t: 0, max_t: 15, rain_proof: true },
-    { category: "Обувь", name: "Легкие кроссовки/Туфли", min_t: 15, max_t: 50, rain_proof: false },
+    { category: "Обувь", name: "Зимние ботинки", min_t: -20, max_t: 0, rain_proof: true, icon: "👢" },
+    { category: "Обувь", name: "Кожаные ботинки/Кроссовки", min_t: 0, max_t: 15, rain_proof: true, icon: "👟" },
+    { category: "Обувь", name: "Легкие кроссовки/Туфли", min_t: 15, max_t: 50, rain_proof: false, icon: "👟" },
     
     // Аксессуары
-    { category: "Аксессуар", name: "Шапка, перчатки и шарф", min_t: -10, max_t: 5, rain_proof: false },
-    { category: "Аксессуар", name: "Легкий шарф или перчатки", min_t: 5, max_t: 15, rain_proof: false }
+    { category: "Аксессуар", name: "Шапка, перчатки и шарф", min_t: -10, max_t: 5, rain_proof: false, icon: "❄️" },
+    { category: "Аксессуар", name: "Легкий шарф или перчатки", min_t: 5, max_t: 15, rain_proof: false, icon: "🧣" }
 ];
 
 // -----------------------------------------------------------
 // 3. ФУНКЦИЯ ЗАПРОСА ПОГОДЫ (Получает данные через API)
 // -----------------------------------------------------------
 async function fetchWeather(city) {
+    // ... (код функции остается без изменений)
     const url = `${API_URL}?q=${city}&appid=${API_KEY}&units=metric&lang=ru`;
     
     try {
@@ -49,11 +49,24 @@ async function fetchWeather(city) {
 
         if (response.ok) {
             const temp = Math.round(data.main.temp); 
-            // Проверяем на осадки (Rain, Snow, Drizzle, Thunderstorm)
             const weather_code = data.weather[0].main;
             const is_rainy = ['Rain', 'Snow', 'Drizzle', 'Thunderstorm'].includes(weather_code);
+            
+            // Добавляем эмодзи погоды для наглядности
+            let weather_emoji = '';
+            if (weather_code === 'Clear') weather_emoji = '☀️';
+            else if (weather_code === 'Clouds') weather_emoji = '☁️';
+            else if (weather_code === 'Rain' || weather_code === 'Drizzle') weather_emoji = '🌧️';
+            else if (weather_code === 'Snow') weather_emoji = '❄️';
+            else if (weather_code === 'Thunderstorm') weather_emoji = '⛈️';
+            else weather_emoji = '❓';
 
-            return { temp, is_rainy, description: data.weather[0].description };
+            return { 
+                temp, 
+                is_rainy, 
+                description: data.weather[0].description,
+                weather_emoji // Новое поле
+            };
         } else {
             throw new Error(`Город "${city}" не найден или ошибка в API-ключе.`);
         }
@@ -63,7 +76,7 @@ async function fetchWeather(city) {
 }
 
 // -----------------------------------------------------------
-// 4. ОСНОВНОЙ АЛГОРИТМ ПОДБОРА (Ядро проекта)
+// 4. ОСНОВНОЙ АЛГОРИТМ ПОДБОРА (Теперь возвращает объект с иконкой)
 // -----------------------------------------------------------
 function recommendClothes(temp, is_rainy) {
     const recommendations = {}; 
@@ -71,70 +84,120 @@ function recommendClothes(temp, is_rainy) {
     for (const item of WARDROBE_DATA) {
         const category = item.category;
 
-        // 1. Фильтр по температурному диапазону (самый важный критерий)
         if (temp >= item.min_t && temp <= item.max_t) {
-            
-            // 2. Фильтр по осадкам (если есть осадки, нужна защита)
             if (!is_rainy || item.rain_proof) {
-                
-                // 3. Выбор лучшего в категории: 
-                // Берем только первый (самый подходящий) элемент в каждой категории
                 if (!recommendations[category]) {
-                    recommendations[category] = item.name;
+                    // Теперь сохраняем весь объект, чтобы получить иконку
+                    recommendations[category] = { 
+                        name: item.name, 
+                        icon: item.icon 
+                    }; 
                 }
             }
         }
     }
     
-    // 4. Добавление обязательного Зонта при осадках (если его еще нет)
+    // Добавление обязательного Зонта/аксессуара при осадках
     if (is_rainy) {
-        recommendations['Аксессуар (Защита)'] = 'Зонт';
+        recommendations['Аксессуар (Защита)'] = { 
+            name: 'Зонт', 
+            icon: '☔' 
+        };
     }
     
-    return recommendations;
+    // Дополнительные советы (новая "фишка")
+    const tips = getSmartTips(temp, is_rainy);
+    
+    return { recommendations, tips };
 }
 
 // -----------------------------------------------------------
-// 5. ГЛАВНАЯ ФУНКЦИЯ (Связывает логику с интерфейсом)
+// 5. НОВАЯ ФУНКЦИЯ: Умные Советы ("Фишки")
+// -----------------------------------------------------------
+function getSmartTips(temp, is_rainy) {
+    const tips = [];
+    
+    if (temp <= 5) {
+        tips.push({ text: "Не забудьте проверить срок годности антифриза для вашего автомобиля!", icon: "🚗" });
+    }
+    if (temp >= 25) {
+        tips.push({ text: "Пейте больше воды и используйте солнцезащитный крем.", icon: "💧" });
+    }
+    if (is_rainy) {
+        tips.push({ text: "Выбирайте водонепроницаемую обувь и одежду, даже если наш алгоритм предложил другое.", icon: "🛡️" });
+    }
+    if (temp >= -5 && temp <= 5 && !is_rainy) {
+        tips.push({ text: "Идеальная погода для прогулки. Одевайтесь многослойно.", icon: "🌲" });
+    }
+    if (temp < 0 && !is_rainy) {
+        tips.push({ text: "На дорогах может быть гололед. Будьте осторожны!", icon: "⚠️" });
+    }
+    
+    return tips;
+}
+
+
+// -----------------------------------------------------------
+// 6. ГЛАВНАЯ ФУНКЦИЯ УПРАВЛЕНИЯ И ИНТЕРФЕЙСА (Обновленный вывод)
 // -----------------------------------------------------------
 async function getRecommendation() {
     const cityInput = document.getElementById('city-input');
     const resultsDiv = document.getElementById('results');
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error-message');
+    const tipsDiv = document.getElementById('tips'); // Новый элемент для советов
     
     const city = cityInput.value.trim();
 
     resultsDiv.innerHTML = '';
     errorDiv.style.display = 'none';
-
-    if (city === "") {
-        errorDiv.textContent = "Пожалуйста, введите название города.";
-        errorDiv.style.display = 'block';
-        return;
-    }
-
-    // Показываем, что идет загрузка
+    tipsDiv.innerHTML = ''; // Очищаем советы
+    
+    if (city === "") { /* ... (проверка остается) ... */ return; }
     loadingDiv.style.display = 'block';
 
     try {
-        // Шаг 1: Получаем погоду
         const weather = await fetchWeather(city);
+        const { recommendations, tips } = recommendClothes(weather.temp, weather.is_rainy); // Получаем рекомендации и советы
         
-        // Шаг 2: Применяем алгоритм
-        const recommendations = recommendClothes(weather.temp, weather.is_rainy);
+        // ---- ВЫВОД ПОГОДЫ ----
+        let outputHTML = `
+            <div class="weather-info">
+                <span>${weather.weather_emoji}</span> Погода в <strong>${city}</strong>: 
+                <span class="temp-display">${weather.temp}°C</span> 
+                (${weather.description}).
+                <p>Осадки: <strong>${weather.is_rainy ? 'Идут' : 'Нет'}</strong></p>
+            </div>
+            <h3>Ваш образ:</h3>
+            <div class="recommendations-grid">
+        `;
         
-        // Шаг 3: Выводим результат в HTML
-        
-        let outputHTML = `<p>Погода в <strong>${city}</strong>: **${weather.temp}°C** . (${weather.description})</p>`;
-        outputHTML += `<p>Осадки: <strong>${weather.is_rainy ? 'Идут' : 'Нет'}</strong></p>`;
-        outputHTML += '<p>Наш выбор:</p>';
-        
+        // ---- ВЫВОД ОДЕЖДЫ ----
         for (const category in recommendations) {
-            outputHTML += `<div class="recommendation-item"><strong>${category}:</strong> ${recommendations[category]}</div>`;
+            const item = recommendations[category];
+            outputHTML += `
+                <div class="recommendation-item">
+                    <span class="item-icon">${item.icon}</span>
+                    <div class="item-details">
+                        <span class="item-category">${category}:</span>
+                        <span class="item-name">${item.name}</span>
+                    </div>
+                </div>
+            `;
         }
+        outputHTML += `</div>`; // Закрываем grid
         
         resultsDiv.innerHTML = outputHTML;
+
+        // ---- ВЫВОД СОВЕТОВ ----
+        if (tips.length > 0) {
+            let tipsHTML = '<h3>✨ Умные советы:</h3><ul>';
+            tips.forEach(tip => {
+                tipsHTML += `<li><span class="tip-icon">${tip.icon}</span> ${tip.text}</li>`;
+            });
+            tipsHTML += '</ul>';
+            tipsDiv.innerHTML = tipsHTML;
+        }
 
     } catch (error) {
         errorDiv.textContent = `Ошибка: ${error.message}`;
@@ -144,13 +207,10 @@ async function getRecommendation() {
     }
 }
 
-
 // -----------------------------------------------------------
-// ИНИЦИАЛИЗАЦИЯ (Для удобства тестирования с вашим городом)
+// ИНИЦИАЛИЗАЦИЯ (для удобства тестирования)
 // -----------------------------------------------------------
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Автоматический ввод вашего города при загрузке страницы
     const cityInput = document.getElementById('city-input');
     if (cityInput) {
         cityInput.value = "Timashevsk"; 
