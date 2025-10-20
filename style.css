@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #4CAF50; /* Зеленый */
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.input-section, .results-section {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.results-section h2 {
+    color: #4CAF50;
+    margin-top: 0;
+}
+
+#city-input {
+    padding: 10px;
+    margin-right: 10px;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#results p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.recommendation-item {
+    /* Визуальное выделение рекомендаций */
+    padding: 5px;
+    border-left: 3px solid #4CAF50; 
+    text-align: left;
+    margin-top: 10px;
+}
+
+.placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+footer {
+    padding: 10px;
+    margin-top: 20px;
+    color: #777;
+    font-size: 0.8em;
+}
