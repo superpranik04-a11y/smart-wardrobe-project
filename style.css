@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f7f6;
+    background-color: #f0f8f8; /* Светлый фон */
     color: #333;
     margin: 0;
     padding: 0;
@@ -8,64 +8,143 @@ body {
 }
 
 header {
-    background-color: #4CAF50; /* Зеленый */
+    background-color: #00796B; /* Темно-бирюзовый */
     color: white;
     padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 main {
-    max-width: 800px;
+    max-width: 900px; /* Немного шире для лучшего вида */
     margin: 40px auto;
-    padding: 20px;
+    padding: 30px;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
-.input-section, .results-section {
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.results-section h2 {
-    color: #4CAF50;
-    margin-top: 0;
+/* Стили для поля ввода и кнопки */
+.input-section {
+    padding-bottom: 30px;
+    border-bottom: 2px solid #EEE;
 }
 
 #city-input {
-    padding: 10px;
-    margin-right: 10px;
-    width: 60%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    margin-right: 15px;
+    width: 55%;
+    border: 2px solid #B2DFDB;
+    border-radius: 8px;
+    font-size: 1em;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    padding: 12px 25px;
+    background-color: #00BCD4; /* Голубой */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #00ACC1;
+    transform: translateY(-1px);
 }
 
-#results p {
-    font-size: 1.1em;
-    line-height: 1.6;
+/* --- Стилизация вывода погоды --- */
+.weather-info {
+    font-size: 1.2em;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.weather-info span {
+    font-size: 1.5em; /* Размер эмодзи погоды */
+    margin-right: 10px;
+}
+
+.temp-display {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #00ACC1;
+}
+
+/* --- Стилизация сетки рекомендаций (Карточки) --- */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Адаптивная сетка */
+    gap: 20px;
+    margin-top: 20px;
+    text-align: left;
 }
 
 .recommendation-item {
-    /* Визуальное выделение рекомендаций */
-    padding: 5px;
-    border-left: 3px solid #4CAF50; 
+    background-color: #E0F7FA; /* Очень светлый голубой фон */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    border-left: 5px solid #00ACC1; /* Яркая полоса слева */
+}
+
+.item-icon {
+    font-size: 2em; /* Большой размер иконки */
+    margin-right: 15px;
+    line-height: 1;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-category {
+    font-size: 0.8em;
+    color: #00796B;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.item-name {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* --- Стилизация Умных Советов --- */
+#tips {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #FFFDE7; /* Светло-желтый фон для советов */
+    border: 1px dashed #FFEB3B;
+    border-radius: 10px;
     text-align: left;
-    margin-top: 10px;
+}
+
+#tips h3 {
+    color: #FBC02D;
+    border-bottom: 1px solid #FFEB3B;
+    padding-bottom: 10px;
+}
+
+#tips ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#tips li {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+}
+
+.tip-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
 }
 
 .placeholder {
