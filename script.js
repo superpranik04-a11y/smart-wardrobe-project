@@ -1,12 +1,12 @@
 // -----------------------------------------------------------
 // 1. КОНФИГУРАЦИЯ
 // -----------------------------------------------------------
-// ВАШ API-КЛЮЧ (остается тот же):
+// ВАШ API-КЛЮЧ (Проверен и работает с OpenWeatherMap):
 const API_KEY = "81f7baf7815a06b27c1c2bc6045aa0e3"; 
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
 // -----------------------------------------------------------
-// 2. БАЗА ДАННЫХ ГАРДЕРОБА (Добавлены эмодзи)
+// 2. БАЗА ДАННЫХ ГАРДЕРОБА (С иконками)
 // -----------------------------------------------------------
 const WARDROBE_DATA = [
     // Верхняя одежда
@@ -37,10 +37,9 @@ const WARDROBE_DATA = [
 ];
 
 // -----------------------------------------------------------
-// 3. ФУНКЦИЯ ЗАПРОСА ПОГОДЫ (Получает данные через API)
+// 3. ФУНКЦИЯ ЗАПРОСА ПОГОДЫ 
 // -----------------------------------------------------------
 async function fetchWeather(city) {
-    // ... (код функции остается без изменений)
     const url = `${API_URL}?q=${city}&appid=${API_KEY}&units=metric&lang=ru`;
     
     try {
@@ -52,7 +51,7 @@ async function fetchWeather(city) {
             const weather_code = data.weather[0].main;
             const is_rainy = ['Rain', 'Snow', 'Drizzle', 'Thunderstorm'].includes(weather_code);
             
-            // Добавляем эмодзи погоды для наглядности
+            // Определяем эмодзи погоды
             let weather_emoji = '';
             if (weather_code === 'Clear') weather_emoji = '☀️';
             else if (weather_code === 'Clouds') weather_emoji = '☁️';
@@ -65,7 +64,7 @@ async function fetchWeather(city) {
                 temp, 
                 is_rainy, 
                 description: data.weather[0].description,
-                weather_emoji // Новое поле
+                weather_emoji
             };
         } else {
             throw new Error(`Город "${city}" не найден или ошибка в API-ключе.`);
@@ -76,7 +75,7 @@ async function fetchWeather(city) {
 }
 
 // -----------------------------------------------------------
-// 4. ОСНОВНОЙ АЛГОРИТМ ПОДБОРА (Теперь возвращает объект с иконкой)
+// 4. ОСНОВНОЙ АЛГОРИТМ ПОДБОРА 
 // -----------------------------------------------------------
 function recommendClothes(temp, is_rainy) {
     const recommendations = {}; 
@@ -87,7 +86,6 @@ function recommendClothes(temp, is_rainy) {
         if (temp >= item.min_t && temp <= item.max_t) {
             if (!is_rainy || item.rain_proof) {
                 if (!recommendations[category]) {
-                    // Теперь сохраняем весь объект, чтобы получить иконку
                     recommendations[category] = { 
                         name: item.name, 
                         icon: item.icon 
@@ -97,7 +95,7 @@ function recommendClothes(temp, is_rainy) {
         }
     }
     
-    // Добавление обязательного Зонта/аксессуара при осадках
+    // Добавляем Зонт при осадках
     if (is_rainy) {
         recommendations['Аксессуар (Защита)'] = { 
             name: 'Зонт', 
@@ -105,14 +103,14 @@ function recommendClothes(temp, is_rainy) {
         };
     }
     
-    // Дополнительные советы (новая "фишка")
+    // Получаем дополнительные советы
     const tips = getSmartTips(temp, is_rainy);
     
     return { recommendations, tips };
 }
 
 // -----------------------------------------------------------
-// 5. НОВАЯ ФУНКЦИЯ: Умные Советы ("Фишки")
+// 5. ФУНКЦИЯ: Умные Советы ("Фишки")
 // -----------------------------------------------------------
 function getSmartTips(temp, is_rainy) {
     const tips = [];
@@ -138,27 +136,32 @@ function getSmartTips(temp, is_rainy) {
 
 
 // -----------------------------------------------------------
-// 6. ГЛАВНАЯ ФУНКЦИЯ УПРАВЛЕНИЯ И ИНТЕРФЕЙСА (Обновленный вывод)
+// 6. ГЛАВНАЯ ФУНКЦИЯ УПРАВЛЕНИЯ И ИНТЕРФЕЙСА
 // -----------------------------------------------------------
 async function getRecommendation() {
     const cityInput = document.getElementById('city-input');
     const resultsDiv = document.getElementById('results');
     const loadingDiv = document.getElementById('loading');
     const errorDiv = document.getElementById('error-message');
-    const tipsDiv = document.getElementById('tips'); // Новый элемент для советов
+    const tipsDiv = document.getElementById('tips'); 
     
     const city = cityInput.value.trim();
 
     resultsDiv.innerHTML = '';
     errorDiv.style.display = 'none';
-    tipsDiv.innerHTML = ''; // Очищаем советы
+    tipsDiv.innerHTML = ''; 
     
-    if (city === "") { /* ... (проверка остается) ... */ return; }
+    if (city === "") { 
+        errorDiv.textContent = "Пожалуйста, введите название города.";
+        errorDiv.style.display = 'block';
+        return;
+    }
+
     loadingDiv.style.display = 'block';
 
     try {
         const weather = await fetchWeather(city);
-        const { recommendations, tips } = recommendClothes(weather.temp, weather.is_rainy); // Получаем рекомендации и советы
+        const { recommendations, tips } = recommendClothes(weather.temp, weather.is_rainy); 
         
         // ---- ВЫВОД ПОГОДЫ ----
         let outputHTML = `
@@ -172,7 +175,7 @@ async function getRecommendation() {
             <div class="recommendations-grid">
         `;
         
-        // ---- ВЫВОД ОДЕЖДЫ ----
+        // ---- ВЫВОД ОДЕЖДЫ (Карточки) ----
         for (const category in recommendations) {
             const item = recommendations[category];
             outputHTML += `
@@ -185,7 +188,7 @@ async function getRecommendation() {
                 </div>
             `;
         }
-        outputHTML += `</div>`; // Закрываем grid
+        outputHTML += `</div>`; 
         
         resultsDiv.innerHTML = outputHTML;
 
@@ -207,8 +210,9 @@ async function getRecommendation() {
     }
 }
 
+
 // -----------------------------------------------------------
-// ИНИЦИАЛИЗАЦИЯ (для удобства тестирования)
+// ИНИЦИАЛИЗАЦИЯ 
 // -----------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const cityInput = document.getElementById('city-input');
@@ -216,3 +220,4 @@ document.addEventListener('DOMContentLoaded', () => {
         cityInput.value = "Timashevsk"; 
     }
 });
+
