@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Умный Гардероб: Проект 10 класс</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <header>
-        <h1>🧥 Умный Гардероб: Ваш погодный стилист</h1>
-    </header>
-
-    <main>
+<main>
         <section class="input-section">
             <p>Введите название города, чтобы получить актуальную рекомендацию по одежде:</p>
             <input type="text" id="city-input" placeholder="Например, Москва">
@@ -25,16 +11,10 @@
                 <p class="placeholder">Здесь появится рекомендация после ввода города.</p>
             </div>
             
+            <div id="tips">
+                </div>
+            
             <div id="loading" style="display: none;">Загрузка данных о погоде...</div>
             <div id="error-message" style="display: none; color: red;"></div>
         </section>
     </main>
-
-    <footer>
-        <p>Итоговый проект 10 класса &copy; 2025</p>
-    </footer>
-
-    <script src="script.js"></script>
-
-</body>
-</html>
